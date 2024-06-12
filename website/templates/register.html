@@ -1,132 +1,175 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Student Community App|Futa Student</title>
+    <title>Student Community App | Register</title>
     <link
       href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
       rel="stylesheet"
     />
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script>
+   (function(){
+      emailjs.init("wfx417tfWrYqMAvgF");
+   })();
+</script>
+
     <style>
       body {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: #f3f4f6;
       }
       .container {
-        max-width: 600px;
-        margin: 0 auto;
+        max-width: 400px;
+        width: 100%;
         padding: 20px;
       }
     </style>
   </head>
 
   <body>
-    {% with messages = get_flashed_messages(with_categories=true) %} {% if
-    messages %} {% for category, message in messages %}
-    <div
-      class="bg-green-500 text-white px-4 py-2 flex items-center justify-between"
-    >
-      <span>{{ message }}</span>
-      <button
-        type="button"
-        class="ml-2"
-        onclick="this.parentElement.style.display='none';"
-      >
-        <svg
-          class="w-4 h-4 fill-current"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
-            d="M6.707 6.293a1 1 0 0 1 1.414 0L10 8.586l2.879-2.88a1 1 0 1 1 1.414 1.414L11.414 10l2.879 2.88a1 1 0 1 1-1.414 1.414L10 11.414l-2.879 2.88a1 1 0 1 1-1.414-1.414L8.586 10 5.707 7.121a1 1 0 0 1 0-1.414z"
-          />
-        </svg>
-      </button>
-    </div>
-    {% endfor %} {% endif %} {% endwith %}
     <div class="container">
-      {% block tittle %}
-      <h1 class="text-3xl text-center mt-8 mb-6">SCA Signup</h1>
-      {% endblock tittle %} {% block form %}
-      <form
-        action="/signup"
-        method="post"
-        class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
-      >
-        <div class="mb-4">
-          <label
-            for="matric_no"
-            class="block text-gray-700 text-sm font-bold mb-2"
-            >Matric No:</label
+      <div class="bg-white shadow-md rounded-lg px-8 pt-6 pb-8 mb-4">
+        <h2 class="text-2xl font-bold text-center mb-6">Create Your Account</h2>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div
+          class="bg-green-500 text-white px-4 py-2 flex items-center justify-between"
+        >
+          <span>{{ message }}</span>
+          <button
+            type="button"
+            class="ml-2"
+            onclick="this.parentElement.style.display='none';"
           >
-          <input
-            type="text"
-            id="matric_no"
-            name="matric_no"
-            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
+            <svg
+              class="w-4 h-4 fill-current"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M6.707 6.293a1 1 0 0 1 1.414 0L10 8.586l2.879-2.88a1 1 0 1 1 1.414 1.414L11.414 10l2.879 2.88a1 1 0 1 1-1.414 1.414L10 11.414l-2.879 2.88a1 1 0 1 1-1.414-1.414L8.586 10 5.707 7.121a1 1 0 0 1 0-1.414z"
+              />
+            </svg>
+          </button>
         </div>
-        <div class="mb-4">
-          <label
-            for="full_name"
-            class="block text-gray-700 text-sm font-bold mb-2"
-            >Full Name:</label
-          >
-          <input
-            type="text"
-            id="full_name"
-            name="full_name"
-            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-        </div>
-        <div class="mb-4">
-          <label
-            for="phone_number"
-            class="block text-gray-700 text-sm font-bold mb-2"
-            >Phone Number:</label
-          >
-          <input
-            type="text"
-            id="phone_number"
-            name="phone_number"
-            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-        </div>
-        <div class="mb-4">
-          <label for="email" class="block text-gray-700 text-sm font-bold mb-2"
-            >Email:</label
-          >
-          <input
-            type="email"
-            id="email"
-            name="email"
-            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-        </div>
-        <div class="mb-4">
-          <label
-            for="password"
-            class="block text-gray-700 text-sm font-bold mb-2"
-            >Password:</label
-          >
-          <input
-            type="password"
-            id="password"
-            name="password"
-            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-        </div>
-        <div class="flex items-center justify-between">
-          <input
-            type="submit"
-            value="Signup"
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          />
-        </div>
-      </form>
-      {% endblock form %}
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <form action="/signup" method="post" class="space-y-6" onsubmit="return validateForm()">
+          <div class="mb-4">
+            <label for="matric_no" class="block text-gray-700 text-sm font-bold mb-2">Matric No:</label>
+            <input
+              type="text"
+              id="matric_no"
+              name="matric_no"
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              placeholder="Enter your matric number"
+              oninput="checkOverflow(this)"
+            />
+            <p id="matric_no_warning" class="text-red-500 text-xs italic hidden">Matric number should be in the format IPE/20/XXXX </p>
+          </div>
+          <div class="mb-4">
+            <label for="full_name" class="block text-gray-700 text-sm font-bold mb-2">Full Name:</label>
+            <input
+              type="text"
+              id="full_name"
+              name="full_name"
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              placeholder="Enter your full name"
+              oninput="checkOverflow(this)"
+            />
+          </div>
+          <div class="mb-4">
+            <label for="phone_number" class="block text-gray-700 text-sm font-bold mb-2">Phone Number:</label>
+            <input
+              type="text"
+              id="phone_number"
+              name="phone_number"
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              placeholder="Enter your phone number"
+              oninput="checkOverflow(this)"
+            />
+          </div>
+          <div class="mb-4">
+            <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email:</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              placeholder="Enter your email"
+              oninput="checkOverflow(this)"
+            />
+          </div>
+          <div class="mb-6">
+            <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Password:</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+              placeholder="Enter your password"
+              oninput="checkOverflow(this)"
+            />
+          </div>
+          <div class="flex items-center justify-between">
+            <button
+              type="submit"
+              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            >
+              Signup
+            </button>
+          </div>
+        </form>
+      </div>
+      <p class="text-center text-gray-500 text-xs">
+        &copy;2024 Student Community App. All rights reserved.
+      </p>
+      <p class="text-center text-sm mt-4">Already have an account? <a href="/login" class="text-blue-500 hover:underline">Login</a></p>
     </div>
+
+    <script>
+      function validateForm() {
+        const matricNoInput = document.getElementById('matric_no');
+        const matricNoPattern = /^[A-Z]{3}\/(17|18|19|20|21|22|23)\/\d{4}$/;
+        const matricNoWarning = document.getElementById('matric_no_warning');
+    
+        if (!matricNoPattern.test(matricNoInput.value)) {
+          matricNoWarning.classList.remove('hidden');
+          return false; // Prevent form submission
+        } else {
+          matricNoWarning.classList.add('hidden');
+          sendEmailNotification(); // Call sendEmailNotification function
+          return true; // Allow form submission
+        }
+      }
+    
+      function sendEmailNotification() {
+        const fullName = document.getElementById('full_name').value;
+        const email = document.getElementById('email').value;
+    
+        emailjs.send("service_ju4lwek", "template_befvdg8", {
+          to_name: fullName,
+          to_email: email
+        })
+        .then(function(response) {
+           console.log('Email sent successfully');
+        }, function(error) {
+           console.error('Failed to send email:', error);
+        });
+      }
+    </script>
+    
+    
   </body>
 </html>
