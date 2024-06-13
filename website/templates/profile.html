@@ -1,0 +1,30 @@
+{% extends "nav.html" %}
+{% block content %}
+    <!-- Profile Section -->
+    <section class="container mx-auto mt-20 p-8">
+        <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+            <div class="flex items-center space-x-6 mb-8">
+                <img class="w-24 h-24 rounded-full object-cover" src="{{ user.picture }}" alt="Profile Picture">
+                <div>
+                    <h2 class="text-3xl font-semibold">{{ user.full_name }}</h2>
+                    <p class="text-gray-400">{{ user.email }}</p>
+                </div>
+            </div>
+            <div class="mb-4">
+                <h3 class="text-xl font-semibold mb-2">Phone Number</h3>
+                <p class="text-gray-300">{{ user.phone_number }}</p>
+            </div>
+            <div class="mb-4">
+                <h3 class="text-xl font-semibold mb-2">Matriculation Number</h3>
+                <p class="text-gray-300">{{ user.matric_no }}</p>
+            </div>
+            <div class="mb-4">
+                <h3 class="text-xl font-semibold mb-2">Bio</h3>
+                <p class="text-gray-300">I'm from Futa</p>
+            </div>
+            <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Edit Profile</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+{% endblock content %}

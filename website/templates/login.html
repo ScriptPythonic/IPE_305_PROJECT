@@ -1,103 +1,68 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Student Community App | Login</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
-      rel="stylesheet"
-    />
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - College Exchange Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
-      body {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        background: #f3f4f6;
+        /* Custom styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #1a202c;
+        }
+        .form-input {
+            background-color: #2d3748;
+            border-color: #4a5568;
+            color: #cbd5e0;
+        }
+        .form-input:focus {
+            border-color: #cbd5e0;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.5);
+        }
+        .btn {
+            background-color: #3182ce;
+            color: #fff;
+        }
+        .btn:hover {
+            background-color: #2c5282;
+        }
+        .alert-error {
+          background-color: #e53e3e;
+          color: #fff;
       }
-      .container {
-        max-width: 400px;
-        width: 100%;
-        padding: 20px;
+      .alert-success {
+          background-color: #38a169;
+          color: #fff;
       }
     </style>
-  </head>
-
-  <body>
-    <div class="container">
-      <div class="bg-white shadow-md rounded-lg px-8 pt-6 pb-8 mb-4">
-        <h2 class="text-2xl font-bold text-center mb-6">Login to Your Account</h2>
+</head>
+<body class="bg-gray-900 flex items-center justify-center h-screen">
+    <div class="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-xs">
+        <h2 class="text-2xl font-semibold mb-6 text-center text-white">Login</h2>
         {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-    {% for category, message in messages %}
-    <div
-      class="bg-green-500 text-white px-4 py-2 flex items-center justify-between"
-    >
-      <span>{{ message }}</span>
-      <button
-        type="button"
-        class="ml-2"
-        onclick="this.parentElement.style.display='none';"
-      >
-        <svg
-          class="w-4 h-4 fill-current"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
-            d="M6.707 6.293a1 1 0 0 1 1.414 0L10 8.586l2.879-2.88a1 1 0 1 1 1.414 1.414L11.414 10l2.879 2.88a1 1 0 1 1-1.414 1.414L10 11.414l-2.879 2.88a1 1 0 1 1-1.414-1.414L8.586 10 5.707 7.121a1 1 0 0 1 0-1.414z"
-          />
-        </svg>
-      </button>
-    </div>
-    {% endfor %}
-    {% endif %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
     {% endwith %}
-        <form action="/login" method="post" class="space-y-6">
-          <div class="mb-4">
-            <label for="matric_no" class="block text-gray-700 text-sm font-bold mb-2">Matric No:</label>
-            <input
-              type="text"
-              id="matric_no"
-              name="matric_no"
-              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              placeholder="Enter your matric number"
-            />
-          </div>
-          <div class="mb-6">
-            <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Password:</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-              placeholder="Enter your password"
-            />
-          </div>
-          <div class="flex items-center justify-between">
-            <button
-              type="submit"
-              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            >
-              Login
-            </button>
-            <a
-              class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
-              href="/forgot"
-            >
-              Forgot Password?
-            </a>
-          </div>
+        <form action="/login" method="POST">
+            <div class="mb-4">
+                <input type="text" id="username" name="matric_no" placeholder="Matric-No" class="form-input py-2 px-4 rounded-md w-full">
+            </div>
+            <div class="mb-4">
+                <input type="password" id="password" name="password" placeholder="Password" class="form-input py-2 px-4 rounded-md w-full">
+            </div>
+            <button type="submit" class="btn py-2 px-4 rounded-md w-full">Login</button>
         </form>
-      </div>
-      <p class="text-center text-gray-500 text-xs">
-        &copy;2024 Student Community App. All rights reserved.
-      </p>
-      <p class="text-center text-sm mt-4">Create An Account ? <a href="/signup" class="text-blue-500 hover:underline">SignUp</a></p>
+        <div class="text-center mt-4">
+            <a href="/forgot" class="text-gray-300 hover:text-white">Forgot password?</a>
+        </div>
+        <div class="text-center mt-4">
+            <span class="text-gray-300">Don't have an account?</span> <a href="/signup" class="text-blue-400 hover:text-blue-300">Sign Up</a>
+        </div>
     </div>
-  </body>
+</body>
 </html>

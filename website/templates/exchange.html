@@ -1,0 +1,39 @@
+{% extends "nav.html" %}
+
+{% block content %}
+    <section class="container mx-auto py-8">
+        <div class="flex items-center mb-4 pt-14">
+            <h2 class="text-2xl font-semibold mr-4">Exchange Items</h2>
+            <form action="{{ url_for('views.exchange') }}" method="GET">
+                <input type="text" name="q" placeholder="Search items..." class="form-input py-2 px-4 rounded-md mr-4" value="{{ search_query }}">
+                <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Search</button>
+            </form>
+        </div>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {% for upload, user in uploads %}
+                <div class="group relative bg-gray-800 rounded-lg overflow-hidden shadow-md">
+                    <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden">
+                        <img src="{{ upload.file_url }}" alt="{{ upload.title }}" class="h-full w-full object-cover object-center">
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between mb-2">
+                            <div>
+                                <h3 class="text-sm font-semibold text-gray-200">
+                                    <a href="#" class="hover:text-gray-300">{{ upload.title }}</a>
+                                </h3>
+                                <p class="mt-1 text-xs text-gray-400">{{ upload.description}}</p>
+                            </div>
+                            {% if user %}
+                            <div class="flex space-x-2 items-center">
+                                <a href="tel:{{ user.phone_number }}" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Call</a>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        
+    </section>
+{% endblock %}

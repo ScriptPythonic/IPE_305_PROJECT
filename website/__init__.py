@@ -2,6 +2,9 @@ from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
 from flask_login import LoginManager
 from os import path
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 db = SQLAlchemy()
 DB_NAME = "database.db"
@@ -10,6 +13,13 @@ def Create_app():
     app = Flask(__name__)
     app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{DB_NAME}"
     app.config["SECRET_KEY"] = "Oyemdade George"
+    app.config['CLOUDINARY_URL'] = 'cloudinary://485855482193362:hvZOVNA9eJ8UVhJo5v-dODXHxAQ@dwxmvddcd'
+
+    cloudinary.config(
+        cloud_name="dwxmvddcd",
+        api_key="485855482193362",
+        api_secret="hvZOVNA9eJ8UVhJo5v-dODXHxAQ"
+    )
     
     from .auth import auth
     from .views import views

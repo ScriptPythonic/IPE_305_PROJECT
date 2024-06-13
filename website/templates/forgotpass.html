@@ -3,51 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forgot Password</title>
-    <!-- Link to Tailwind CSS CDN -->
+    <title>Forgot Password - College Exchange Platform</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #1a202c;
+        }
+        .form-input {
+            background-color: #2d3748;
+            border-color: #4a5568;
+            color: #cbd5e0;
+        }
+        .form-input:focus {
+            border-color: #cbd5e0;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.5);
+        }
+        .btn {
+            background-color: #e53e3e;
+            color: #fff;
+        }
+        .btn:hover {
+            background-color: #c53030;
+        }
+    </style>
 </head>
-<body class="bg-gray-100 h-screen flex items-center justify-center">
-    <div class="max-w-md w-full bg-white p-8 rounded-lg shadow-lg">
-        <h1 class="text-2xl font-bold text-center mb-8">Forgot Password</h1>
-        
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="mb-4 text-red-500">{{ message }}</div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-        
-        <form action="/forgot" method="POST">
+<body class="bg-gray-900 flex items-center justify-center h-screen">
+    <div class="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-sm">
+        <h2 class="text-2xl font-semibold mb-6 text-center text-white">Forgot Password</h2>
+        <form action="#" method="POST">
             <div class="mb-4">
-                <label for="matric_no" class="block text-sm font-semibold mb-2">Matric No:</label>
-                <input type="text" id="matric_no" name="matric_no" 
-                       class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500">
+                <input type="text" id="matric-no" name="matric-no" placeholder="Matriculation Number" class="form-input py-2 px-4 rounded-md w-full">
             </div>
             <div class="mb-4">
-                <label for="phone_number" class="block text-sm font-semibold mb-2">Phone Number:</label>
-                <input type="text" id="phone_number" name="phone_number" 
-                       class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500">
+                <input type="text" id="phone-number" name="phone-number" placeholder="Phone Number" class="form-input py-2 px-4 rounded-md w-full">
             </div>
             <div class="mb-4">
-                <label for="password" class="block text-sm font-semibold mb-2">New Password:</label>
-                <input type="password" id="password" name="password" 
-                       class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500">
+                <input type="password" id="new-password" name="new-password" placeholder="New Password" class="form-input py-2 px-4 rounded-md w-full">
             </div>
-            <div class="mb-6">
-                <label for="confirm_password" class="block text-sm font-semibold mb-2">Confirm New Password:</label>
-                <input type="password" id="confirm_password" name="confirm_password" 
-                       class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500">
+            <div class="mb-4">
+                <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm Password" class="form-input py-2 px-4 rounded-md w-full">
             </div>
-            <button type="submit" class="w-full bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg 
-                                            hover:bg-blue-700 focus:outline-none focus:bg-blue-700">
-                Reset Password
-            </button>
+            <button type="submit" class="btn py-2 px-4 rounded-md w-full">Reset Password</button>
         </form>
-        
-        <!-- Link back to the login page -->
-        <p class="text-center text-sm mt-4">Remembered your pass? <a href="/login" class="text-blue-500 hover:underline">Back to Login</a></p>
+        <div class="text-center mt-4">
+            <span class="text-gray-300">Remembered your password?</span> <a href="/login" class="text-blue-400 hover:text-blue-300">Login</a>
+        </div>
     </div>
 </body>
 </html>

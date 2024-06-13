@@ -1,326 +1,80 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
- <title>Student Community App | Login</title>
- <style>
-  .Flashoverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    display: none;
-}
-  @media (max-width: 768px) {
-      .sidebar {
-         z-index: 100;
-          position: fixed;
-          width: 70%;
+{% extends "nav.html" %}
+{% block style %}
+<style>
+  /* Custom styles */
+  /* Ensure the hero section is full screen */
+  /* Hover animation */
+  .animate-pulse {
+      animation: pulse 1.5s infinite;
+  }
+  @keyframes pulse {
+      0%, 100% {
+          transform: scale(1);
       }
-
-      .sidebar-toggle {
-          display: block;
-      }
-
-      .main-content {
-          margin-left: 0;
-      }
-
-      .overlay {
-          display: none;
-      }
-      .fwid{
-        width: 98%;
+      50% {
+          transform: scale(1.05);
       }
   }
 </style>
-</head>
-<body>
-  {% with messages = get_flashed_messages(with_categories=true) %}
-  {% if messages %}
-      <div class="Flashoverlay active" id="flashOverlay">
-          <div class="message-box">
-              {% for category, message in messages %}
-                  <p>{{ message }}</p>
-              {% endfor %}
-              <button class="mt-4 px-4 py-2 bg-blue-500 text-white rounded" id="okayButton">Okay</button>
+{% endblock style %}
+{% block content %}
+    <section class="hero-section bg-gray-900">
+        <div class="container mx-auto text-center py-20">
+            <h1 class="text-4xl md:text-6xl font-bold text-white mb-4">Welcome to Student Exchange Platform</h1>
+            <p class="text-lg text-white mb-8">Exchange, Buy, Donate, and Find Resources Easily</p>
+            <button class="bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600">Get Started</button>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="container mx-auto py-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Card Template -->
+          <div class="bg-gray-800 text-white p-6 rounded-lg shadow-md text-center" data-aos="fade-up" data-aos-duration="800">
+              <img src="https://img.icons8.com/dotty/80/000000/upload-to-cloud.png" alt="Upload Product" class="w-16 h-16 mx-auto mb-4 animate-pulse">
+              <h3 class="text-2xl font-bold mb-2">Upload Product</h3>
+              <p class="text-gray-300 mb-4">Upload items you want to exchange or sell.</p>
+              <a href="/upload" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Upload</a>
+          </div>
+          <div class="bg-gray-800 text-white p-6 rounded-lg shadow-md text-center" data-aos="fade-up" data-aos-duration="800">
+              <img src="https://img.icons8.com/pastel-glyph/64/000000/currency-exchange.png" alt="Exchange" class="w-16 h-16 mx-auto mb-4 animate-pulse">
+              <h3 class="text-2xl font-bold mb-2">Exchange</h3>
+              <p class="text-gray-300 mb-4">Exchange items with fellow students.</p>
+              <a href="/exchange" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Exchange</a>
+          </div>
+          <div class="bg-gray-800 text-white p-6 rounded-lg shadow-md text-center" data-aos="fade-up" data-aos-duration="800">
+              <img src="https://img.icons8.com/glyph-neue/64/000000/buy--v1.png" alt="Buy" class="w-16 h-16 mx-auto mb-4 animate-pulse">
+              <h3 class="text-2xl font-bold mb-2">Buy</h3>
+              <p class="text-gray-300 mb-4">Buy items at affordable prices.</p>
+              <a href="/buy" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Buy</a>
+          </div>
+          <div class="bg-gray-800 text-white p-6 rounded-lg shadow-md text-center" data-aos="fade-up" data-aos-duration="800">
+              <img src="https://img.icons8.com/dotty/80/000000/donate.png " alt="Donate" class="w-16 h-16 mx-auto mb-4 animate-pulse">
+              <h3 class="text-2xl font-bold mb-2">Donate</h3>
+              <p class="text-gray-300 mb-4">Donate items to those in need.</p>
+              <a href="/donate" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Donate</a>
+          </div>
+          <div class="bg-gray-800 text-white p-6 rounded-lg shadow-md text-center" data-aos="fade-up" data-aos-duration="800">
+              <img src="https://img.icons8.com/glyph-neue/64/000000/book--v1.png" alt="Books" class="w-16 h-16 mx-auto mb-4 animate-pulse">
+              <h3 class="text-2xl font-bold mb-2">Books</h3>
+              <p class="text-gray-300 mb-4">Find and exchange textbooks.</p>
+              <a href="/books" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Books</a>
+          </div>
+          <div class="bg-gray-800 text-white p-6 rounded-lg shadow-md text-center" data-aos="fade-up" data-aos-duration="800">
+              <img src="https://img.icons8.com/dotty/80/000000/saving-book.png" alt="Past Questions" class="w-16 h-16 mx-auto mb-4 animate-pulse">
+              <h3 class="text-2xl font-bold mb-2">Past Questions</h3>
+              <p class="text-gray-300 mb-4">Access past exam questions.</p>
+              <a href="/past-questions" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Past Questions</a>
+          </div>
+          <div class="bg-gray-800 text-white p-6 rounded-lg shadow-md text-center" data-aos="fade-up" data-aos-duration="800">
+              <img src="https://img.icons8.com/ios-filled/50/000000/news.png" alt="News" class="w-16 h-16 mx-auto mb-4 animate-pulse">
+              <h3 class="text-2xl font-bold mb-2">News</h3>
+              <p class="text-gray-300 mb-4">Stay updated with the latest news.</p>
+              <a href="/news" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">News</a>
           </div>
       </div>
-  {% endif %}
-{% endwith %}
-  <!-- side bar started here  -->
-  <div class="flex h-screen">
-   <!-- Sidebar -->
-   <div class="bg-gray-50 text-white w-64 flex flex-col sidebar">
-     <div class="p-4 border-b border-gray-700 text-black flex justify-between ">
-      <h2>LOGO</h2>
-      <button id="closeSidebarButton" class="md:hidden">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-        </svg>
-    </button>
-    </div>
-     <ul class="flex flex-col py-4 space-y-6">
-      <li>
-       <a href="#" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
-         <span class="inline-flex justify-center items-center ml-4">
-           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
-         </span>
-         <span class="ml-2 text-sm tracking-wide truncate">Dashboard</span>
-       </a>
-     </li>
-       <li>
-        <a href="#" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
-          <span class="inline-flex justify-center items-center ml-4">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path></svg>
-          </span>
-          <span class="ml-2 text-sm tracking-wide truncate">Exchange</span>
-          <span class="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-indigo-500 bg-indigo-50 rounded-full">New</span>
-        </a>
-      </li>
-      <li>
-        <a href="#" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
-          <span class="inline-flex justify-center items-center ml-4">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path></svg>
-          </span>
-          <span class="ml-2 text-sm tracking-wide truncate">Product</span>
-        </a>
-      </li>
-      <li>
-        <a href="#" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
-          <span class="inline-flex justify-center items-center ml-4">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
-          </span>
-          <span class="ml-2 text-sm tracking-wide truncate">Services</span>
-          <span class="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-red-500 bg-red-50 rounded-full">1.2k</span>
-        </a>
-      </li>
-      <li>
-        <a href="#" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
-          <span class="inline-flex justify-center items-center ml-4">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
-          </span>
-          <span class="ml-2 text-sm tracking-wide truncate">Donations</span>
-          <span class="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-red-500 bg-red-50 rounded-full">1.2k</span>
-        </a>
-      </li>
-    </ul>
-    <div class="mt-auto">
-      <a href="/logout" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-red-500 pr-6">
-        <span class="inline-flex justify-center items-center ml-4 text-red-400">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-        </span>
-        <span class="ml-2 text-sm tracking-wide truncate">Logout</span>
-      </a>
-    </div>
-  </div>
+  </section>
+    {% endblock content %}
 
-  <!-- Main content -->
-  <div class="flex-1 md:p-6 fwid ">
-    <div class="container mx-auto">
-      <!-- Header -->
-      <header class="flex justify-between items-center mb-6">
-        <!-- Search bar -->
-        <div class="w-full max-w-xs">
-          <div class="relative">
-            <button class="sidebar-toggle fixed z-50 text-white p-2 flex items-center justify-center">
-              <!-- SVG icon -->
-              <svg class="w-4 h-4 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-              </svg>
-          </button>
-            <span class="absolute inset-y-0 left-0 pl-2 ml-8 flex items-center pointer-events-none">
-              <svg class="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 14a6 6 0 110-12 6 6 0 010 12zm12 4.5L18.5 16a9.964 9.964 0 01-1.5 1.5L22 20.5z"/>
-              </svg>
-            </span>
-            <input type="search" name="search" id="search" class="search-input bg-gray-300 h-8 rounded-md pl-8 ml-8 focus:outline-none" placeholder="Search items" >
-          </div>
-        </div>
 
-        <!-- Wishlist, Cart, and Userpic -->
-        <div class="flex items-center space-x-4">
-          <a href="#" class="text-gray-600 hover:text-gray-800">
-            Wishlist
-          </a>
-          <a href="#" class="text-gray-600 hover:text-gray-800">
-            Cart
-          </a>
-          
-          <img src="path_to_image" alt="User Pic" class="w-10 h-10 rounded-full">
-        </div>
-      </header>
-
-      <!-- Main section -->
-      <div>
-        <h2 class="font-bold text-2xl">CLOTHING</h2>
-        <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-          <!-- Product Box -->
-          <div class="group relative">
-            <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
-              <img src="{{ url_for('static', filename='images/agba.png') }}" alt="Front of men&#039;s Basic Tee in black." class="h-full w-full object-cover object-center lg:h-full lg:w-full">
-            </div>
-            <div class="mt-4 flex justify-between">
-              <div>
-                <h3 class="text-sm text-gray-700">
-                  <a href="#">
-                    <span aria-hidden="true" class="absolute inset-0"></span>
-                   Shoe
-                  </a>
-                </h3>
-                <p class="mt-1 text-sm text-gray-500">Brown & Black</p>
-              </div>
-              <p class="text-sm font-medium text-gray-900">₦10,000</p>
-            </div>
-          </div>
-          
-          <div class="group relative">
-            <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
-              <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg" alt="Front of men&#039;s Basic Tee in black." class="h-full w-full object-cover object-center lg:h-full lg:w-full">
-            </div>
-            <div class="mt-4 flex justify-between">
-              <div>
-                <h3 class="text-sm text-gray-700">
-                  <a href="#">
-                    <span aria-hidden="true" class="absolute inset-0"></span>
-                    Black Shirt
-                  </a>
-                </h3>
-                <p class="mt-1 text-sm text-gray-500">Black</p>
-              </div>
-              <p class="text-sm font-medium text-gray-900">₦2,000</p>
-            </div>
-          </div>
-
-          <div class="group relative">
-        <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
-          <img src="{{ url_for('static', filename='images/frame1.svg') }}" alt="Front of men&#039;s Basic Tee in black." class="h-full w-full object-cover object-center lg:h-full lg:w-full">
-        </div>
-        <div class="mt-4 flex justify-between">
-          <div>
-            <h3 class="text-sm text-gray-700">
-              <a href="#">
-                <span aria-hidden="true" class="absolute inset-0"></span>
-                Nice Shoe
-              </a>
-            </h3>
-            <p class="mt-1 text-sm text-gray-500">Blue</p>
-          </div>
-          <p class="text-sm font-medium text-gray-900">₦15,000</p>
-        </div>
-      </div>
-          <!-- second row -->
-          <div class="group relative">
-            <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
-              <img src="{{ url_for('static', filename='images/killdem.png') }}" alt="Front of men&#039;s Basic Tee in black." class="h-full w-full object-cover object-center lg:h-full lg:w-full">
-            </div>
-            <div class="mt-4 flex justify-between">
-              <div>
-                <h3 class="text-sm text-gray-700">
-                  <a href="#">
-                    <span aria-hidden="true" class="absolute inset-0"></span>
-                    High Quality Shoe
-                  </a>
-                </h3>
-                <p class="mt-1 text-sm text-gray-500">Black</p>
-              </div>
-              <p class="text-sm font-medium text-gray-900">₦30,000</p>
-            </div>
-          </div>
-          
-          <div class="group relative">
-            <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
-              <img src="{{ url_for('static', filename='images/bigboot.png') }}" alt="Front of men&#039;s Basic Tee in black." class="h-full w-full object-cover object-center lg:h-full lg:w-full">
-            </div>
-            <div class="mt-4 flex justify-between">
-              <div>
-                <h3 class="text-sm text-gray-700">
-                  <a href="#">
-                    <span aria-hidden="true" class="absolute inset-0"></span>
-                    Brown Boot
-                  </a>
-                </h3>
-                <p class="mt-1 text-sm text-gray-500">Brown</p>
-              </div>
-              <p class="text-sm font-medium text-gray-900">₦32,000</p>
-            </div>
-          </div>
-
-          <div class="group relative">
-        <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
-          <img src="{{ url_for('static', filename='images/smallboot.png') }}" alt="Front of men&#039;s Basic Tee in black." class="h-full w-full object-cover object-center lg:h-full lg:w-full">
-        </div>
-        <div class="mt-4 flex justify-between">
-          <div>
-            <h3 class="text-sm text-gray-700">
-              <a href="#">
-                <span aria-hidden="true" class="absolute inset-0"></span>
-               Shining Brown Shoe
-              </a>
-            </h3>
-            <p class="mt-1 text-sm text-gray-500">Black</p>
-          </div>
-          <p class="text-sm font-medium text-gray-900">₦12,000</p>
-        </div>
-      </div>
-
-       
-          
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-      const sidebar = document.querySelector('.sidebar');
-      const sidebarToggle = document.querySelector('.sidebar-toggle');
-      const overlay = document.querySelector('.overlay');
-
-      sidebarToggle.addEventListener('click', function () {
-          sidebar.classList.toggle('hidden');
-          overlay.classList.toggle('hidden');
-      });
-
-      overlay.addEventListener('click', function () {
-          sidebar.classList.add('hidden');
-          overlay.classList.add('hidden');
-      });
-  });
-
-  
-</script>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const closeSidebarButton = document.getElementById('closeSidebarButton');
-        const sidebar = document.querySelector('.sidebar');
-
-        closeSidebarButton.addEventListener('click', function() {
-            sidebar.classList.toggle('hidden');
-        });
-    });
-</script>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-      const okayButton = document.getElementById('okayButton');
-      const flashOverlay = document.getElementById('flashOverlay');
-
-      okayButton.addEventListener('click', function() {
-          flashOverlay.classList.remove('active');
-      });
-  });
-</script>
-
-</body>
-
-</html>
+   

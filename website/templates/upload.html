@@ -1,0 +1,56 @@
+{% extends "nav.html" %}
+{% block style %}
+<style>
+    body {
+        background-color: #1a202c;
+        color: #cbd5e0; /* Text color */
+    }
+    .form-input {
+        background-color: #2d3748;
+        border-color: #4a5568;
+        color: #cbd5e0; /* Text color */
+    }
+    .form-input:focus {
+        border-color: #cbd5e0;
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.5);
+    }
+    .btn {
+        background-color: #3182ce;
+        color: #fff;
+    }
+    .btn:hover {
+        background-color: #2f855a;
+    }
+</style>
+{% endblock style %}
+{% block content %}
+    <!-- Upload Section -->
+    <section class="container mx-auto mt-20 p-8">
+        <div class="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md mx-auto">
+            <h2 class="text-2xl font-semibold mb-6 text-center text-white">Upload Item</h2>
+            <form action="{{ url_for('views.upload') }}" method="POST" enctype="multipart/form-data">
+                <div class="mb-4">
+                    <input type="text" name="title" placeholder="Title" class="form-input py-2 px-4 rounded-md w-full" required>
+                </div>
+                <div class="mb-4">
+                    <textarea name="description" placeholder="Description" class="form-input py-2 px-4 rounded-md w-full" rows="4" required></textarea>
+                </div>
+                <div class="mb-4">
+                    <select name="category" class="form-input py-2 px-4 rounded-md w-full" required>
+                        <option value="">Select Category</option>
+                        <option value="exchange">Exchange</option>
+                        <option value="sell">Sell</option>
+                        <option value="news">News</option>
+                        <option value="books">Books</option>
+                        <option value="past_questions">Past Questions</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <input type="file" name="file" class="form-input py-2 px-4 rounded-md w-full" required>
+                </div>
+                <button type="submit" class="btn py-2 px-4 rounded-md w-full">Upload</button>
+            </form>
+        </div>
+    </section>
+{% endblock content %}

@@ -1,0 +1,61 @@
+{% extends "nav.html" %}
+{% block style %}
+<style>
+    /* Custom styles */
+   
+    .message-preview {
+        transition: background-color 0.2s;
+    }
+    .message-preview:hover {
+        background-color: #2d3748;
+    }
+</style>
+{% endblock style %}
+{% block content %}
+    <!-- Messages Section -->
+    <section class="container mx-auto mt-20 p-8">
+        <h2 class="text-3xl font-semibold mb-6 text-center">Messages</h2>
+        <div class="bg-gray-800 p-6 rounded-lg shadow-md">
+            <!-- Message Preview List -->
+            <div class="divide-y divide-gray-700">
+                <!-- Message Preview Item -->
+                <a href="#" class="block message-preview p-4 flex items-center">
+                    <img src="avatar1.png" alt="Avatar" class="w-12 h-12 rounded-full mr-4">
+                    <div class="flex-grow">
+                        <div class="flex justify-between">
+                            <h3 class="text-xl font-semibold">Jane Doe</h3>
+                            <span class="text-gray-400 text-sm">2m ago</span>
+                        </div>
+                        <p class="text-gray-300">Hey, I’m interested in the book you posted...</p>
+                    </div>
+                </a>
+                <!-- Message Preview Item -->
+                <a href="#" class="block message-preview p-4 flex items-center">
+                    <img src="avatar2.png" alt="Avatar" class="w-12 h-12 rounded-full mr-4">
+                    <div class="flex-grow">
+                        <div class="flex justify-between">
+                            <h3 class="text-xl font-semibold">John Smith</h3>
+                            <span class="text-gray-400 text-sm">1h ago</span>
+                        </div>
+                        <p class="text-gray-300">Can we meet tomorrow for the exchange?</p>
+                    </div>
+                </a>
+                <!-- Message Preview Item -->
+                <a href="#" class="block message-preview p-4 flex items-center">
+                    <img src="avatar3.png" alt="Avatar" class="w-12 h-12 rounded-full mr-4">
+                    <div class="flex-grow">
+                        <div class="flex justify-between">
+                            <h3 class="text-xl font-semibold">Alice Johnson</h3>
+                            <span class="text-gray-400 text-sm">3h ago</span>
+                        </div>
+                        <p class="text-gray-300">Thanks for the notes. They were really helpful!</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+    {% endblock content %}
+
+
+
+  
