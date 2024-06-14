@@ -20,6 +20,10 @@
             font-size: 0.75rem; /* Text size for the badge */
             display: none; /* Hidden by default */
         }
+
+        #mobile-menu{
+            display: none;
+        }
         .show-badge .badge {
             display: block; /* Show the badge */
         }
@@ -36,16 +40,17 @@
             outline: none;
             box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.5);
         }
+
     </style>
 </head>
 <body class="bg-gray-900 text-white">
     <!-- Navigation Bar -->
     <header class="bg-gray-800 text-white fixed w-full z-10 top-0">
-        <div class="container mx-auto flex justify-between items-center px-4 py-2">
+        <div class="container mx-auto flex justify-between items-center px-4 py-4">
             <div class="text-2xl font-bold">StudentExchange</div>
             <nav class="hidden md:flex space-x-4 relative">
                 <a href="/" class="hover:text-gray-300">Home</a>
-                <a href="#" class="hover:text-gray-300">My Listings</a>
+                <a href="/my-listings" class="hover:text-gray-300">My Listings</a>
                 <a href="/messages" class="hover:text-gray-300 relative">Messages
                     <span class="badge">1</span>
                 </a>
@@ -64,7 +69,7 @@
         <!-- Mobile Menu (hidden by default) -->
         <div id="mobile-menu" class="md:hidden bg-gray-800">
             <a href="/" class="block py-2 px-4 text-white hover:bg-gray-700">Home</a>
-            <a href="#" class="block py-2 px-4 text-white hover:bg-gray-700">My Listings</a>
+            <a href="/my-listings" class="block py-2 px-4 text-white hover:bg-gray-700">My Listings</a>
             <a href="/messages" class="block py-2 px-4 text-white hover:bg-gray-700 relative">Messages
                 <span class="badge">1</span>
             </a>

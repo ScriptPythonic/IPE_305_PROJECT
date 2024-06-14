@@ -1,0 +1,36 @@
+{% extends "nav.html" %}
+
+{% block content %}
+<section class="container mx-auto py-8 pt-20">
+    <h2 class="text-2xl font-semibold mb-4">My Listings</h2>
+    
+    {% if uploads %}
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {% for upload in uploads %}
+        <div class="group relative bg-gray-800 rounded-lg overflow-hidden shadow-md">
+            <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden">
+                <img src="{{ upload.file_url }}" alt="{{ upload.title }}" class="h-full w-full object-cover object-center">
+            </div>
+            <div class="p-4">
+                <div class="flex justify-between mb-2">
+                    <div>
+                        <h3 class="text-sm font-semibold text-gray-200">
+                            <a href="#" class="hover:text-gray-300">{{ upload.title }}</a>
+                        </h3>
+                        <p class="mt-1 text-xs text-gray-400">{{ upload.category }}</p>
+                    </div>
+                    <form method="POST" action="{{ url_for('views.my_listings') }}">
+                        <input type="hidden" name="item_id" value="{{ upload.id }}">
+                        <button type="submit" class="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600">Delete</button>
+                    </form>
+                </div>
+                <p class="text-sm text-gray-300">{{ upload.description }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="text-gray-400 text-center mt-6">You have no listings.</p>
+    {% endif %}
+</section>
+{% endblock %}
