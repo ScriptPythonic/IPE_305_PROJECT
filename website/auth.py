@@ -2,19 +2,18 @@ from flask import Flask, render_template, redirect, Blueprint, request, url_for,
 from . import db
 from .models import User
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import login_user,logout_user,login_required
-
+from flask_login import login_user, logout_user, login_required
 
 auth = Blueprint('auth', __name__)
 
 @auth.route("/signup", methods=["GET", "POST"])
 def signup():
     if request.method == 'POST':
-        # Get form data
-        matric_no = request.form.get("matric_no")
+        # Get form data and convert email and matric_no to lowercase
+        matric_no = request.form.get("matric_no").lower()
         full_name = request.form.get("full_name")
         phone_number = request.form.get("phone_number")
-        email = request.form.get("email")
+        email = request.form.get("email").lower()
         password = request.form.get("password")
 
         # Validate form data
@@ -49,9 +48,9 @@ def signup():
 @auth.route("/login", methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        matric_no = request.form["matric_no"]
+        # Get form data and convert matric_no to lowercase
+        matric_no = request.form["matric_no"].lower()
         password = request.form["password"]
-
         # Query user
         user = User.query.filter_by(matric_no=matric_no).first()
 

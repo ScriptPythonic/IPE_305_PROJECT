@@ -75,7 +75,7 @@
 </section>
 
 <!-- Chat Input Section -->
-<form action="{{ url_for('views.message_user', user_id=other_user.id) }}" method="POST" class="chat-input">
+<form action="{{ url_for('message.message_user', user_id=other_user.id) }}" method="POST" class="chat-input">
     <input type="text" name="message_content" placeholder="Type a message...">
     <button type="submit">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

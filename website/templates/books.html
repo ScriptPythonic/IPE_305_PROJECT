@@ -27,7 +27,7 @@
                         </div>
                         <div class="flex space-x-2 items-center">
                             <a href="{{ upload.file_url }}" download="{{ upload.title }}.pdf" class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600">Download</a>
-                            <a href="{{ url_for('views.message_user', user_id=user.id) }}" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Message</a>
+                            <a href="{{ url_for('message.message_user', user_id=user.id) }}" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Message</a>
                         </div>
                     </div>
                 </div>

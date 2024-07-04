@@ -3,54 +3,149 @@
 <style>
     body {
         background-color: #1a202c;
-        color: #cbd5e0; /* Text color */
+        color: #cbd5e0;
     }
-    .form-input {
+    .form-container {
         background-color: #2d3748;
-        border-color: #4a5568;
-        color: #cbd5e0; /* Text color */
+        border-radius: 10px;
+        padding: 30px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        max-width: 500px;
+        margin: auto;
+        overflow: hidden;
     }
-    .form-input:focus {
-        border-color: #cbd5e0;
+    .form-title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        text-align: center;
+  
+    }
+
+    .form-input, .form-select, .form-file, .btn {
+        background-color: #2d3748;
+        border: 1px solid #4a5568;
+        color: #cbd5e0;
+        padding: 12px;
+        border-radius: 5px;
+        width: 100%;
+        margin-bottom: 15px;
+        transition: border-color 0.2s, opacity 0.5s, transform 0.5s;
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    .form-input:focus, .form-select:focus, .form-file:focus {
+        border-color: #63b3ed;
         outline: none;
         box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.5);
     }
     .btn {
         background-color: #3182ce;
         color: #fff;
+        cursor: pointer;
+        transition: background-color 0.2s;
+        opacity: 0;
+        transform: translateY(20px);
     }
     .btn:hover {
-        background-color: #2f855a;
+        background-color: #2b6cb0;
+    }
+    .tooltip {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+    }
+    .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 120px;
+        background-color: #4a5568;
+        color: #fff;
+        text-align: center;
+        border-radius: 5px;
+        padding: 5px;
+        position: absolute;
+        z-index: 1;
+        bottom: 125%; /* Position the tooltip above the text */
+        left: 50%;
+        margin-left: -60px;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+    .tooltip:hover .tooltiptext {
+        visibility: visible;
+        opacity: 1;
+    }
+    .visible {
+        opacity: 1;
+        transform: translateY(0);
     }
 </style>
 {% endblock style %}
 {% block content %}
     <!-- Upload Section -->
     <section class="container mx-auto mt-20 p-8">
-        <div class="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md mx-auto">
-            <h2 class="text-2xl font-semibold mb-6 text-center text-white">Upload Item</h2>
-            <form action="{{ url_for('views.upload') }}" method="POST" enctype="multipart/form-data">
-                <div class="mb-4">
-                    <input type="text" name="title" placeholder="Title" class="form-input py-2 px-4 rounded-md w-full" required>
+        <div class="form-container">
+            <h2 class="form-title">Upload Item</h2>
+            <form id="upload-form" action="{{ url_for('views.upload') }}" method="POST" enctype="multipart/form-data">
+                <div class="tooltip mb-4">
+                    <input type="text" name="title" placeholder="Title" class="form-input" required>
+                    <span class="tooltiptext">Enter a descriptive title for the item.</span>
                 </div>
-                <div class="mb-4">
-                    <textarea name="description" placeholder="Description" class="form-input py-2 px-4 rounded-md w-full" rows="4" required></textarea>
+                <div class="tooltip mb-4">
+                    <textarea name="description" placeholder="Description" class="form-input" rows="4" required></textarea>
+                    <span class="tooltiptext">Provide a detailed description.</span>
                 </div>
-                <div class="mb-4">
-                    <select name="category" class="form-input py-2 px-4 rounded-md w-full" required>
-                        <option value="">Select Category</option>
+                <div class="tooltip mb-4">
+                    <select name="category" class="form-select" required>
+                        <option value="" disabled selected>Select Category</option>
                         <option value="exchange">Exchange</option>
                         <option value="sell">Sell</option>
                         <option value="news">News</option>
                         <option value="books">Books</option>
                         <option value="past_questions">Past Questions</option>
+                        <option value="services">Services</option>
                     </select>
+                    <span class="tooltiptext">Choose the appropriate category.</span>
                 </div>
-                <div class="mb-4">
-                    <input type="file" name="file" class="form-input py-2 px-4 rounded-md w-full" required>
+                <div class="tooltip mb-4">
+                    <input type="file" name="file" class="form-file" required>
+                    <span class="tooltiptext">Upload a relevant file.</span>
                 </div>
-                <button type="submit" class="btn py-2 px-4 rounded-md w-full">Upload</button>
+                <button type="submit" class="btn">Upload</button>
             </form>
         </div>
     </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const formInputs = document.querySelectorAll('.form-input, .form-select, .form-file, .btn');
+            let currentInputIndex = 0;
+
+            function showNextInput() {
+                if (currentInputIndex < formInputs.length) {
+                    const input = formInputs[currentInputIndex];
+                    input.classList.add('visible');
+                    input.addEventListener('input', function() {
+                        if (input.value) {
+                            currentInputIndex++;
+                            showNextInput();
+                        }
+                    }, { once: true });
+                }
+            }
+
+            showNextInput();
+
+            document.getElementById('upload-form').addEventListener('submit', function(event) {
+                const title = document.querySelector('input[name="title"]').value.trim();
+                const description = document.querySelector('textarea[name="description"]').value.trim();
+                const category = document.querySelector('select[name="category"]').value;
+                const file = document.querySelector('input[name="file"]').files[0];
+
+                if (!title || !description || !category || !file) {
+                    event.preventDefault();
+                    alert('Please fill in all fields and upload a file.');
+                }
+            });
+        });
+    </script>
 {% endblock content %}

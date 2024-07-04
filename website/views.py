@@ -1,10 +1,10 @@
 from flask import Flask, render_template,Blueprint,flash,request,redirect,url_for,jsonify
 from werkzeug.security import generate_password_hash
 from . import db
-from .models import User,Upload,Message
+from .models import User,Upload
 from flask_login import login_required,current_user
 import cloudinary.uploader
-from sqlalchemy import or_
+from sqlalchemy import or_,func
 
 views = Blueprint('views',__name__)
 
@@ -13,15 +13,21 @@ views = Blueprint('views',__name__)
 def index():
     return render_template("welcome.html")
 
-@views.route('/messages', methods=['GET'])
-@login_required
-def messages():
-    # Fetch users who have messaged the current user or have been messaged by the current user
-    users = User.query.filter(
-        (Message.sender_id == current_user.id) | (Message.receiver_id == current_user.id)
-    ).distinct()
-    
-    return render_template('messagelist.html', users=users)
+# @views.route('/messages', methods=['GET'])
+# @login_required
+# def messages():
+#     # Subquery to get the most recent timestamp for each user
+#     subquery = db.session.query(
+#         Message.sender_id,
+#         func.max(Message.timestamp).label('max_timestamp')
+#     ).filter(Message.receiver_id == current_user.id).group_by(Message.sender_id).subquery()
+
+#     # Fetch users with their most recent message timestamp, ordered by descending timestamp
+#     users = User.query.join(
+#         subquery, User.id == subquery.c.sender_id
+#     ).order_by(subquery.c.max_timestamp.desc())
+
+#     return render_template('messagelist.html', users=users)
 
 @views.route('/my-listings', methods=['GET', 'POST'])
 @login_required
@@ -51,37 +57,37 @@ def my_listings():
 def profile():
     return render_template('profile.html', user=current_user)
 
-@views.route('/message/<int:user_id>', methods=['GET', 'POST'])
-@login_required
-def message_user(user_id):
-    other_user = User.query.get_or_404(user_id)
+# @views.route('/message/<int:user_id>', methods=['GET', 'POST'])
+# @login_required
+# def message_user(user_id):
+#     other_user = User.query.get_or_404(user_id)
 
-    if other_user == current_user:
-        flash("You cannot message yourself.", "error")
-        return redirect(url_for('views.index'))  # Redirect to books listing or appropriate page
+#     if other_user == current_user:
+#         flash("You cannot message yourself.", "error")
+#         return redirect(url_for('views.index'))  # Redirect to books listing or appropriate page
 
-    if request.method == 'POST':
-        message_content = request.form.get('message_content')
+#     if request.method == 'POST':
+#         message_content = request.form.get('message_content')
 
-        if message_content:
-            message = Message(
-                sender_id=current_user.id,
-                receiver_id=user_id,
-                content=message_content
-            )
-            db.session.add(message)
-            db.session.commit()
-            flash('Message sent successfully!', 'success')
-            return redirect(url_for('views.message_user', user_id=user_id))
-        else:
-            flash('Message content cannot be empty.', 'error')
+#         if message_content:
+#             message = Message(
+#                 sender_id=current_user.id,
+#                 receiver_id=user_id,
+#                 content=message_content
+#             )
+#             db.session.add(message)
+#             db.session.commit()
+#             flash('Message sent successfully!', 'success')
+#             return redirect(url_for('message.message_user', user_id=user_id))
+#         else:
+#             flash('Message content cannot be empty.', 'error')
 
-    messages = Message.query.filter(
-        ((Message.sender_id == current_user.id) & (Message.receiver_id == user_id)) |
-        ((Message.sender_id == user_id) & (Message.receiver_id == current_user.id))
-    ).order_by(Message.timestamp.asc()).all()
+#     messages = Message.query.filter(
+#         ((Message.sender_id == current_user.id) & (Message.receiver_id == user_id)) |
+#         ((Message.sender_id == user_id) & (Message.receiver_id == current_user.id))
+#     ).order_by(Message.timestamp.asc()).all()
 
-    return render_template('message.html', messages=messages, other_user=other_user)
+#     return render_template('message.html', messages=messages, other_user=other_user)
 
 
 @views.route('/upload', methods=['GET', 'POST'])
@@ -119,10 +125,11 @@ def upload():
 @views.route('/forgot',methods=['POST','GET'])
 def forgot_password():
     if request.method == 'POST':
-        matric_no = request.form.get("matric_no")
-        phone_number = request.form.get("phone_number")
-        new_password = request.form.get("password")
-        confirm_password = request.form.get("confirm_password")
+        matric_no = request.form.get("matric-no").lower()
+        phone_number = request.form.get("phone-number")
+        new_password = request.form.get("new-password")
+        confirm_password = request.form.get("confirm-password")
+        print(matric_no)
 
         # Check if matric_no exists in the database
         user = User.query.filter_by(matric_no=matric_no).first()
@@ -141,32 +148,35 @@ def forgot_password():
             return redirect(url_for('views.forgot_password'))
 
         # Update the user's password with the new password
-        user.password = generate_password_hash(new_password)
-        db.session.commit()
+        try:
+            user.password = generate_password_hash(new_password)
+            db.session.commit()
+            flash('Password reset successfully. You can now log in with your new password.', 'success')
+            return redirect(url_for("auth.login"))
+        except Exception as e:
+            db.session.rollback()
+            flash('An error occurred while resetting the password. Please try again.', 'error')
+            print(f"Error: {e}")  # Log the error for debugging purposes
+            return redirect(url_for('views.forgot_password'))
 
-        flash('Password reset successfully. You can now log in with your new password.', 'success')
-        return redirect(url_for("auth.login"))
-
-    
     return render_template('forgotpass.html')
-
-
  
 @views.route('/exchange', methods=['GET'])
 @login_required
 def exchange():
     search_query = request.args.get('q', '')
 
-    # Query uploads with associated user information
+    # Query uploads with associated user information and filter by category
     if search_query:
         uploads = db.session.query(Upload, User).join(User).filter(
-            or_(Upload.title.ilike(f"%{search_query}%"), User.username.ilike(f"%{search_query}%"))
+            Upload.category.ilike(f"%{search_query}%"), User.username.ilike(f"%{search_query}%")
         ).all()
     else:
-        uploads = db.session.query(Upload, User).join(User).all()
+        uploads = db.session.query(Upload, User).join(User).filter(
+            Upload.category == "exchange"
+        ).all()
 
     return render_template('exchange.html', uploads=uploads, search_query=search_query)
-
 
 ########## THIS IS A ROUTE FOR THE BOOKS ############
 @views.route('/books', methods=['GET'])
@@ -240,3 +250,21 @@ def buy():
         ).all()
 
     return render_template('buy.html', uploads=uploads, search_query=search_query)
+
+@views.route('/services', methods=['GET'])
+@login_required
+def services():
+    search_query = request.args.get('q', '')
+
+    if search_query:
+        uploads = db.session.query(Upload, User).join(User).filter(
+            Upload.category == "services",
+            or_(Upload.title.ilike(f"%{search_query}%"), User.username.ilike(f"%{search_query}%"))
+        ).all()
+    else:
+        uploads = db.session.query(Upload, User).join(User).filter(
+            Upload.category == "services"
+        ).all()
+
+    return render_template('services.html', uploads=uploads)
+

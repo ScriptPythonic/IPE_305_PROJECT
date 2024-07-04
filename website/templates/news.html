@@ -28,7 +28,7 @@
                             {% if user %}
                             <div class="flex space-x-2 items-center">
                                 <a href="tel:{{ user.phone_number }}" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Call</a>
-                                <a href="{{ url_for('views.message_user', user_id=user.id) }}" class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600">Message</a>
+                                <a href="{{ url_for('message.message_user', user_id=user.id) }}" class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600">Message</a>
                             </div>
                             {% endif %}
                         </div>

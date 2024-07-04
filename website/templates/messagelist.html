@@ -21,7 +21,7 @@
             {% if users %}
                 {% for user in users %}
                 <!-- Message Preview Item -->
-                <a href="{{ url_for('views.message_user', user_id=user.id) }}" class="block message-preview p-4 flex items-center">
+                <a href="{{ url_for('message.message_user', user_id=user.id) }}" class="block message-preview p-4 flex items-center">
                     <img src="{{ user.picture }}" alt="{{ user.full_name }}" class="w-12 h-12 rounded-full mr-4">
                     <div class="flex-grow">
                         <div class="flex justify-between">

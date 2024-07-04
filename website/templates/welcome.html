@@ -1,9 +1,7 @@
 {% extends "nav.html" %}
 {% block style %}
 <style>
-  /* Custom styles */
-  /* Ensure the hero section is full screen */
-  /* Hover animation */
+
   .animate-pulse {
       animation: pulse 1.5s infinite;
   }
@@ -20,7 +18,7 @@
 {% block content %}
     <section class="hero-section bg-gray-900">
         <div class="container mx-auto text-center py-20">
-            <h1 class="text-4xl md:text-6xl font-bold text-white mb-4">Welcome to Student Exchange Platform</h1>
+            <h1 class="text-4xl md:text-6xl font-bold text-white mb-4 pt-8">Welcome to Student Exchange Platform</h1>
             <p class="text-lg text-white mb-8">Exchange, Buy, Donate, and Find Resources Easily</p>
             <button class="bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600">Get Started</button>
         </div>
@@ -49,6 +47,12 @@
               <a href="/buy" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Buy</a>
           </div>
           <div class="bg-gray-800 text-white p-6 rounded-lg shadow-md text-center" data-aos="fade-up" data-aos-duration="800">
+            <img width="100" height="100" src="https://img.icons8.com/ios/100/000000/hairdresser.png" alt="hairdresser" class="w-16 h-16 mx-auto mb-4 animate-pulse"/>
+            <h3 class="text-2xl font-bold mb-2">Services</h3>
+            <p class="text-gray-300 mb-4">We offer a range of services to meet your needs.</p>
+            <a href="/services" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Services</a>            
+        </div>
+          <div class="bg-gray-800 text-white p-6 rounded-lg shadow-md text-center" data-aos="fade-up" data-aos-duration="800">
               <img src="https://img.icons8.com/dotty/80/000000/donate.png " alt="Donate" class="w-16 h-16 mx-auto mb-4 animate-pulse">
               <h3 class="text-2xl font-bold mb-2">Donate</h3>
               <p class="text-gray-300 mb-4">Donate items to those in need.</p>
@@ -73,6 +77,7 @@
               <a href="/news" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">News</a>
           </div>
       </div>
+
   </section>
  {% endblock content %}
 
