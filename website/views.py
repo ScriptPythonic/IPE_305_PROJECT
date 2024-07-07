@@ -5,6 +5,7 @@ from .models import User,Upload
 from flask_login import login_required,current_user
 import cloudinary.uploader
 from sqlalchemy import or_,func
+from datetime import datetime
 
 views = Blueprint('views',__name__)
 
@@ -268,3 +269,28 @@ def services():
 
     return render_template('services.html', uploads=uploads)
 
+@views.route('/profile/edit', methods=['GET', 'POST'])
+@login_required
+def edit_profile():
+    user = current_user
+
+    if request.method == 'POST':
+        user.full_name = request.form['full_name']
+        user.phone_number = request.form['phone_number']
+        user.address = request.form['address']
+        user.reg_officer_no = request.form['reg_officer_no']
+        user.department = request.form['department']
+        user.level = request.form['level']
+        user.bio = request.form['bio']
+        
+        if 'picture' in request.files:
+            picture = request.files['picture']
+            if picture:
+                upload_result = cloudinary.uploader.upload(picture)
+                user.picture = upload_result['secure_url']
+        
+        db.session.commit()
+        flash('Profile updated successfully.', 'success')
+        return redirect(url_for('views.profile'))
+
+    return render_template('settings.html', user=user)

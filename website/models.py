@@ -1,6 +1,6 @@
 from . import db
 from flask_login import UserMixin
-from datetime import datetime
+from datetime import datetime, timedelta
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -10,14 +10,21 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(100), nullable=False)
     picture = db.Column(db.String(255), default='https://th.bing.com/th/id/R.d8be3ebdc1ed3c6b13ffbeee0b20fa3c?rik=h%2bwbaNZzYT67Gg&pid=ImgRaw&r=0')
+    address = db.Column(db.String(1000), nullable=True)
+    reg_officer_no = db.Column(db.String(200), nullable=True)
+    department = db.Column(db.String(200), nullable=True)
+    level = db.Column(db.String(200), nullable=True)
+    last_update = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+
     is_active = db.Column(db.Boolean, default=True)
     
     sent_messages = db.relationship('Message', foreign_keys='Message.sender_id', backref='sender', lazy=True)
     received_messages = db.relationship('Message', foreign_keys='Message.receiver_id', backref='receiver', lazy=True)
 
-
-    def __repr__(self):
-        return f'<User {self.full_name}>'
+    def can_update_profile(self):
+            if self.last_update is None:
+                return True
+            return datetime.utcnow() >= self.last_update + timedelta(weeks=1)
 
 class Upload(db.Model):
     id = db.Column(db.Integer, primary_key=True)

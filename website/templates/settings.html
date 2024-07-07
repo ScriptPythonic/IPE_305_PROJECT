@@ -1,0 +1,58 @@
+{% extends "nav.html" %}
+{% block content %}
+<!-- Edit Profile Section -->
+<section class="container mx-auto mt-20 p-8">
+    <div class="bg-gray-100 p-6 rounded-lg shadow-md">
+        <form action="{{ url_for('views.edit_profile') }}" method="POST" enctype="multipart/form-data">
+            <div class="flex items-center space-x-6 mb-8">
+                <img class="w-24 h-24 rounded-full object-cover" src="{{ user.picture }}" alt="Profile Picture">
+                <div>
+                    <h2 class="text-3xl font-semibold text-gray-800">{{ user.full_name }}</h2>
+                    <p class="text-gray-500">{{ user.email }}</p>
+                </div>
+            </div>
+            <div class="mb-4">
+                <h3 class="text-xl font-semibold mb-2 text-gray-800">Full Name</h3>
+                <input type="text" name="full_name" value="{{ user.full_name }}" class="form-input w-full bg-gray-300 text-gray-800 border-none h-12" required>
+            </div>
+            <div class="mb-4">
+                <h3 class="text-xl font-semibold mb-2 text-gray-800">Phone Number</h3>
+                <input type="text" name="phone_number" value="{{ user.phone_number }}" class="form-input w-full bg-gray-300 text-gray-800 border-none h-12" required>
+            </div>
+            <div class="mb-4">
+                <h3 class="text-xl font-semibold mb-2 text-gray-800">Matriculation Number</h3>
+                <p class="text-gray-500">{{ user.matric_no|upper }}</p>
+            </div>
+            <div class="mb-4">
+                <h3 class="text-xl font-semibold mb-2 text-gray-800">Email</h3>
+                <p class="text-gray-500">{{ user.email|upper}}</p>
+            </div>
+            <div class="mb-4">
+                <h3 class="text-xl font-semibold mb-2 text-gray-800">Address</h3>
+                <input type="text" name="address" value="{{ user.address }}" class="form-input w-full bg-gray-300 text-gray-800 border-none h-20">
+            </div>
+            <div class="mb-4">
+                <h3 class="text-xl font-semibold mb-2 text-gray-800">Registration Officer Number</h3>
+                <input type="text" name="reg_officer_no" value="{{ user.reg_officer_no }}" class="form-input w-full bg-gray-300 text-gray-800 border-none h-12">
+            </div>
+            <div class="mb-4">
+                <h3 class="text-xl font-semibold mb-2 text-gray-800">Department</h3>
+                <input type="text" name="department" value="{{ user.department }}" class="form-input w-full bg-gray-300 text-gray-800 border-none h-12">
+            </div>
+            <div class="mb-4">
+                <h3 class="text-xl font-semibold mb-2 text-gray-800">Level</h3>
+                <input type="text" name="level" value="{{ user.level }}" class="form-input w-full bg-gray-300 text-gray-800 border-none h-12">
+            </div>
+            <div class="mb-4">
+                <h3 class="text-xl font-semibold mb-2 text-gray-800">Bio</h3>
+                <textarea name="bio" class="form-input w-full bg-gray-300 text-gray-800 border-none h-32" rows="4">I'm from Futa</textarea>
+            </div>
+            <div class="mb-4">
+                <h3 class="text-xl font-semibold mb-2 text-gray-800">New Profile Picture</h3>
+                <input type="file" name="picture" class="form-input w-full bg-gray-300 text-gray-800 border-none h-12" required>
+            </div>
+            <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 mt-4">Update Profile</button>
+        </form>
+    </div>
+</section>
+{% endblock content %}

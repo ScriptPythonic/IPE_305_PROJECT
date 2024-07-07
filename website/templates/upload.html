@@ -2,14 +2,14 @@
 {% block style %}
 <style>
     body {
-        background-color: #1a202c;
-        color: #cbd5e0;
+        background-color: #ffffff; /* White background */
+        color: #1a202c; /* Dark text color */
     }
     .form-container {
-        background-color: #2d3748;
+        background-color: #f7fafc; /* Light gray background */
         border-radius: 10px;
         padding: 30px;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         max-width: 500px;
         margin: auto;
         overflow: hidden;
@@ -19,13 +19,12 @@
         font-weight: bold;
         margin-bottom: 20px;
         text-align: center;
-  
     }
 
     .form-input, .form-select, .form-file, .btn {
-        background-color: #2d3748;
-        border: 1px solid #4a5568;
-        color: #cbd5e0;
+        background-color: #edf2f7; /* Lighter background */
+        border: 1px solid #cbd5e0; /* Light border color */
+        color: #2d3748; /* Dark text color */
         padding: 12px;
         border-radius: 5px;
         width: 100%;
@@ -35,20 +34,20 @@
         transform: translateY(20px);
     }
     .form-input:focus, .form-select:focus, .form-file:focus {
-        border-color: #63b3ed;
+        border-color: #a0aec0; /* Focus border color */
         outline: none;
         box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.5);
     }
     .btn {
-        background-color: #3182ce;
-        color: #fff;
+        background-color: #3182ce; /* Button background color */
+        color: #ffffff; /* Button text color */
         cursor: pointer;
         transition: background-color 0.2s;
         opacity: 0;
         transform: translateY(20px);
     }
     .btn:hover {
-        background-color: #2b6cb0;
+        background-color: #2b6cb0; /* Button hover background color */
     }
     .tooltip {
         position: relative;
@@ -82,10 +81,10 @@
 </style>
 {% endblock style %}
 {% block content %}
-    <!-- Upload Section -->
-    <section class="container mx-auto mt-20 p-8">
-        <div class="form-container">
-            <h2 class="form-title">Upload Item</h2>
+<section class="container mx-auto mt-20 p-8">
+    <div class="form-container">
+        <h2 class="form-title">Upload Item</h2>
+        {% if current_user.matric_no and current_user.full_name and current_user.phone_number and current_user.email and current_user.picture and current_user.address and current_user.reg_officer_no and current_user.department and current_user.level %}
             <form id="upload-form" action="{{ url_for('views.upload') }}" method="POST" enctype="multipart/form-data">
                 <div class="tooltip mb-4">
                     <input type="text" name="title" placeholder="Title" class="form-input" required>
@@ -113,39 +112,43 @@
                 </div>
                 <button type="submit" class="btn">Upload</button>
             </form>
-        </div>
-    </section>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const formInputs = document.querySelectorAll('.form-input, .form-select, .form-file, .btn');
-            let currentInputIndex = 0;
+        {% else %}
+            <p class="mb-4 text-red-500">Please complete your profile information before uploading items.</p>
+            <a href="/profile/edit" class="btn bg-blue-500 text-white py-2 px-4 rounded">Complete Profile</a>
+        {% endif %}
+    </div>
+</section>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const formInputs = document.querySelectorAll('.form-input, .form-select, .form-file, .btn');
+        let currentInputIndex = 0;
 
-            function showNextInput() {
-                if (currentInputIndex < formInputs.length) {
-                    const input = formInputs[currentInputIndex];
-                    input.classList.add('visible');
-                    input.addEventListener('input', function() {
-                        if (input.value) {
-                            currentInputIndex++;
-                            showNextInput();
-                        }
-                    }, { once: true });
-                }
+        function showNextInput() {
+            if (currentInputIndex < formInputs.length) {
+                const input = formInputs[currentInputIndex];
+                input.classList.add('visible');
+                input.addEventListener('input', function() {
+                    if (input.value) {
+                        currentInputIndex++;
+                        showNextInput();
+                    }
+                }, { once: true });
             }
+        }
 
-            showNextInput();
+        showNextInput();
 
-            document.getElementById('upload-form').addEventListener('submit', function(event) {
-                const title = document.querySelector('input[name="title"]').value.trim();
-                const description = document.querySelector('textarea[name="description"]').value.trim();
-                const category = document.querySelector('select[name="category"]').value;
-                const file = document.querySelector('input[name="file"]').files[0];
+        document.getElementById('upload-form').addEventListener('submit', function(event) {
+            const title = document.querySelector('input[name="title"]').value.trim();
+            const description = document.querySelector('textarea[name="description"]').value.trim();
+            const category = document.querySelector('select[name="category"]').value;
+            const file = document.querySelector('input[name="file"]').files[0];
 
-                if (!title || !description || !category || !file) {
-                    event.preventDefault();
-                    alert('Please fill in all fields and upload a file.');
-                }
-            });
+            if (!title || !description || !category || !file) {
+                event.preventDefault();
+                alert('Please fill in all fields and upload a file.');
+            }
         });
-    </script>
+    });
+</script>
 {% endblock content %}

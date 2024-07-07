@@ -7,11 +7,11 @@
         border-radius: 15px;
     }
     .chat-bubble.sent {
-        background-color: #4a5568;
+        background-color: #cbd5e0; /* Light background color for sent messages */
         margin-left: auto;
     }
     .chat-bubble.received {
-        background-color: #2d3748;
+        background-color: #e2e8f0; /* Light background color for received messages */
     }
     .chat-container {
         height: calc(100vh - 128px);
@@ -26,7 +26,7 @@
         bottom: 0;
         width: 100%;
         padding: 10px 20px;
-        background-color: #2d3748;
+        background-color: #e2e8f0; /* Light background color for chat input */
         display: flex;
         gap: 10px;
     }
@@ -36,20 +36,20 @@
         border-radius: 25px;
         border: none;
         outline: none;
-        background-color: #4a5568;
-        color: white;
+        background-color: #cbd5e0; /* Light background color for input field */
+        color: #2d3748; /* Dark text color for input field */
     }
     .chat-input button {
         padding: 10px 15px;
         border-radius: 50%;
-        background-color: #4a5568;
-        color: white;
+        background-color: #cbd5e0; /* Light background color for send button */
+        color: #2d3748; /* Dark text color for send button */
         border: none;
         outline: none;
         cursor: pointer;
     }
     .chat-input button:hover {
-        background-color: #5a667d;
+        background-color: #a0aec0; /* Darker background color on hover */
     }
 </style>
 {% endblock style %}

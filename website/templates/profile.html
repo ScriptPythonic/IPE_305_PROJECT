@@ -1,50 +1,65 @@
 {% extends "nav.html" %}
-{% block content %}
-    <!-- Profile Section -->
-    <section class="container mx-auto mt-20 p-8">
-        <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
-            <div class="flex items-center space-x-6 mb-8">
-                <img class="w-24 h-24 rounded-full object-cover" src="{{ user.picture }}" alt="Profile Picture">
-                <div>
-                    <h2 class="text-3xl font-semibold">{{ user.full_name }}</h2>
-                    <p class="text-gray-400">{{ user.email }}</p>
-                </div>
-            </div>
-            <div class="mb-4">
-                <h3 class="text-xl font-semibold mb-2">Phone Number</h3>
-                <p class="text-gray-300">{{ user.phone_number }}</p>
-            </div>
-            <div class="mb-4">
-                <h3 class="text-xl font-semibold mb-2">Matriculation Number</h3>
-                <p class="text-gray-300">
-                    <span id="matricMasked">{{ user.matric_no[:3] | upper }}{{ '*' * (user.matric_no|length - 3) }}</span>
-                    <span id="matricFull" class="hidden">{{ user.matric_no | upper }}</span>
-                    <svg id="toggleEye" class="cursor-pointer w-6 h-6 inline-block ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-.274 1.097-.666 2.13-1.168 3.07M15 12a3 3 0 01-3 3m0 0a3 3 0 01-3-3m3 3c-.606 0-1.173-.102-1.684-.284M12 21c-4.477 0-8.268-2.943-9.542-7a13.045 13.045 0 011.168-3.07"></path>
-                    </svg>
-                </p>
-            </div>
-            <div class="mb-4">
-                <h3 class="text-xl font-semibold mb-2">Bio</h3>
-                <p class="text-gray-300">I'm from Futa</p>
-            </div>
-            <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Edit Profile</button>
-        </div>
-    </section>
-    <script>
-        document.getElementById('toggleEye').addEventListener('click', function() {
-            var masked = document.getElementById('matricMasked');
-            var full = document.getElementById('matricFull');
-            if (masked.classList.contains('hidden')) {
-                masked.classList.remove('hidden');
-                full.classList.add('hidden');
-            } else {
-                masked.classList.add('hidden');
-                full.classList.remove('hidden');
-            }
-        });
-    </script>
 
-    <!-- Footer -->
+{% block content %}
+<!-- Profile Section -->
+<section class="container mx-auto mt-20 p-8">
+    <div class="bg-gray-100 p-6 rounded-lg shadow-md">
+        <div class="flex items-center space-x-6 mb-8">
+            <img class="w-24 h-24 rounded-full object-cover" src="{{ user.picture }}" alt="Profile Picture">
+            <div>
+                <h2 class="text-3xl font-semibold text-gray-800">{{ user.full_name }}</h2> <!-- Dark text color -->
+                <p class="text-gray-500">{{ user.email }}</p> <!-- Slightly darker text color -->
+            </div>
+        </div>
+        <div class="mb-4">
+            <h3 class="text-xl font-semibold mb-2 text-gray-800">Phone Number</h3> <!-- Dark text color -->
+            <p class="text-gray-500">{{ user.phone_number }}</p> <!-- Slightly darker text color -->
+        </div>
+        <div class="mb-4">
+            <h3 class="text-xl font-semibold mb-2 text-gray-800">Matriculation Number</h3> <!-- Dark text color -->
+            <p class="text-gray-500">
+                <span id="matricMasked">{{ user.matric_no[:3] | upper }}{{ '*' * (user.matric_no|length - 3) }}</span>
+                <span id="matricFull" class="hidden">{{ user.matric_no | upper }}</span>
+                <svg id="toggleEye" class="cursor-pointer w-6 h-6 inline-block ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7 .274 1.097-.666 2.13-1.168 3.07M15 12a3 3 0 01-3 3m0 0a3 3 0 01-3-3m3 3c-.606 0-1.173-.102-1.684-.284M12 21c-4.477 0-8.268-2.943-9.542-7a13.045 13.045 0 011.168-3.07"></path>
+                </svg>
+            </p>
+        </div>
+        <div class="mb-4">
+            <h3 class="text-xl font-semibold mb-2 text-gray-800">Address</h3> <!-- Dark text color -->
+            <p class="text-gray-500">{{ user.address }}</p> <!-- Slightly darker text color -->
+        </div>
+        <div class="mb-4">
+            <h3 class="text-xl font-semibold mb-2 text-gray-800">Registration Officer Number</h3> <!-- Dark text color -->
+            <p class="text-gray-500">{{ user.reg_officer_no }}</p> <!-- Slightly darker text color -->
+        </div>
+        <div class="mb-4">
+            <h3 class="text-xl font-semibold mb-2 text-gray-800">Department</h3> <!-- Dark text color -->
+            <p class="text-gray-500">{{ user.department }}</p> <!-- Slightly darker text color -->
+        </div>
+        <div class="mb-4">
+            <h3 class="text-xl font-semibold mb-2 text-gray-800">Level</h3> <!-- Dark text color -->
+            <p class="text-gray-500">{{ user.level }}</p> <!-- Slightly darker text color -->
+        </div>
+        <div class="mb-4">
+            <h3 class="text-xl font-semibold mb-2 text-gray-800">Bio</h3> <!-- Dark text color -->
+            <p class="text-gray-500">I'm from Futa</p> <!-- Slightly darker text color -->
+        </div>
+        <a href="/profile/edit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Edit Profile</a>
+    </div>
+</section>
+<script>
+    document.getElementById('toggleEye').addEventListener('click', function() {
+        var masked = document.getElementById('matricMasked');
+        var full = document.getElementById('matricFull');
+        if (masked.classList.contains('hidden')) {
+            masked.classList.remove('hidden');
+            full.classList.add('hidden');
+        } else {
+            masked.classList.add('hidden');
+            full.classList.remove('hidden');
+        }
+    });
+</script>
 {% endblock content %}

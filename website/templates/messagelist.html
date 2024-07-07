@@ -5,9 +5,10 @@
     /* Custom styles */
     .message-preview {
         transition: background-color 0.2s;
+        background-color: #cbd5e0; /* Light background color */
     }
     .message-preview:hover {
-        background-color: #2d3748;
+        background-color: #e2e8f0; /* Lighter background color on hover */
     }
 </style>
 {% endblock style %}
@@ -15,9 +16,9 @@
 {% block content %}
 <section class="container mx-auto mt-20 p-8">
     <h2 class="text-3xl font-semibold mb-6 text-center">Messages</h2>
-    <div class="bg-gray-800 p-6 rounded-lg shadow-md">
+    <div class="bg-gray-100 p-6 rounded-lg shadow-md"> <!-- Light background color -->
         <!-- Message Preview List -->
-        <div class="divide-y divide-gray-700">
+        <div class="divide-y divide-gray-200"> <!-- Lighter divider color -->
             {% if users %}
                 {% for user in users %}
                 <!-- Message Preview Item -->
@@ -25,10 +26,10 @@
                     <img src="{{ user.picture }}" alt="{{ user.full_name }}" class="w-12 h-12 rounded-full mr-4">
                     <div class="flex-grow">
                         <div class="flex justify-between">
-                            <h3 class="text-xl font-semibold">{{ user.full_name }}</h3>
-                            <span class="text-gray-400 text-sm">View Messages</span>
+                            <h3 class="text-xl font-semibold text-gray-800">{{ user.full_name }}</h3> <!-- Dark text color -->
+                            <span class="text-gray-500 text-sm">View Messages</span> <!-- Slightly darker text color -->
                         </div>
-                        <p class="text-gray-300">Click to view messages</p>
+                        <p class="text-gray-600">Click to view messages</p> <!-- Darker text color -->
                     </div>
                 </a>
                 {% endfor %}

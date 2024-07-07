@@ -9,30 +9,76 @@
         /* Custom styles */
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: #1a202c;
+            background-color: #1570a6;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            height: 100vh;
+            animation: backgroundAnimation 40s infinite;
         }
+
+        @keyframes backgroundAnimation {
+            0% {
+                background-image: url('../static/images/1.jpg');
+            }
+            20% {
+                background-image: url('../static/images/2.jpg');
+            }
+            40% {
+                background-image: url('../static/images/3.jpg');
+            }
+            60% {
+                background-image: url('../static/images/4.jpg');
+            }
+            80% {
+                background-image: url('../static/images/3.jpg');
+            }
+            100% {
+                background-image: url('../static/images/5.jpg');
+            }
+        }
+
         .form-input {
-            background-color: #2d3748;
-            border-color: #4a5568;
-            color: #cbd5e0;
-        }
-        .form-input:focus {
+            border:  2px solid #cbd5e0 ;
             border-color: #cbd5e0;
+            color: #2d3748;
+        }
+
+        .form-input:focus {
+            border-color: #3182ce;
             outline: none;
             box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.5);
         }
+
         .btn {
+            background-color: #3182ce;
+            color: #fff;
+        }
+
+        .btn:hover {
+            background-color: #2c5282;
+        }
+
+        .logo {
+            margin-bottom: 2rem;
+        }
+
+        .alert-error {
             background-color: #e53e3e;
             color: #fff;
         }
-        .btn:hover {
-            background-color: #c53030;
+
+        .alert-success {
+            background-color: #38a169;
+            color: #fff;
         }
     </style>
 </head>
-<body class="bg-gray-900 flex items-center justify-center h-screen">
-    <div class="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-sm">
-        <h2 class="text-2xl font-semibold mb-6 text-center text-white">Forgot Password</h2>
+<body class="flex items-center justify-center h-screen">
+    <div class="text-center mb-6 w-full max-w-sm relative z-10">
+        <img src="	https://firars.futa.edu.ng/app/assets/img/smalllogo.png" alt="Logo" class="logo mx-auto w-32">
+
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
             {% for category, message in messages %}
@@ -40,23 +86,27 @@
             {% endfor %}
          {% endif %}
          {% endwith %}
-        <form action="#" method="POST">
-            <div class="mb-4">
-                <input type="text" id="matric-no" name="matric-no" placeholder="Matriculation Number" class="form-input py-2 px-4 rounded-md w-full">
+        <div class="bg-white p-8 rounded-lg shadow-lg w-full">
+        <h2 class="text-2xl font-semibold mb-2 text-center text-black">Forgot Password</h2>
+
+            <form action="#" method="POST">
+                <div class="mb-4">
+                    <input type="text" id="matric-no" name="matric-no" placeholder="Matriculation Number" class="form-input py-2 px-4 rounded-md w-full">
+                </div>
+                <div class="mb-4">
+                    <input type="text" id="phone-number" name="phone-number" placeholder="Phone Number" class="form-input py-2 px-4 rounded-md w-full">
+                </div>
+                <div class="mb-4">
+                    <input type="password" id="new-password" name="new-password" placeholder="New Password" class="form-input py-2 px-4 rounded-md w-full">
+                </div>
+                <div class="mb-4">
+                    <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm Password" class="form-input py-2 px-4 rounded-md w-full">
+                </div>
+                <button type="submit" class="btn py-2 px-4 rounded-md w-full">Reset Password</button>
+            </form>
+            <div class="text-center mt-4">
+                <span class="text-gray-900">Remembered your password?</span> <a href="/login" class="text-blue-400 hover:text-blue-300">Login</a>
             </div>
-            <div class="mb-4">
-                <input type="text" id="phone-number" name="phone-number" placeholder="Phone Number" class="form-input py-2 px-4 rounded-md w-full">
-            </div>
-            <div class="mb-4">
-                <input type="password" id="new-password" name="new-password" placeholder="New Password" class="form-input py-2 px-4 rounded-md w-full">
-            </div>
-            <div class="mb-4">
-                <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm Password" class="form-input py-2 px-4 rounded-md w-full">
-            </div>
-            <button type="submit" class="btn py-2 px-4 rounded-md w-full">Reset Password</button>
-        </form>
-        <div class="text-center mt-4">
-            <span class="text-gray-300">Remembered your password?</span> <a href="/login" class="text-blue-400 hover:text-blue-300">Login</a>
         </div>
     </div>
 </body>
